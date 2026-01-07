@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied - SentinelShield</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: var(--bg-color);
+            color: var(--danger);
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.2);
+            display: inline-block;
+            border: 1px solid var(--danger);
+            color: var(--text-main);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: var(--danger);
+        }
+
+        .reason {
+            font-weight: bold;
+            color: var(--warning);
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--secondary);
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🚫 Access Denied</h1>
+        <p>Your request was blocked by <strong>SentinelShield Protection System</strong>.</p>
+        <p>Reason: <span class="reason">{{ reason }}</span></p>
+        <hr>
+        <p><small>Event logged and reported.</small></p>
+    </div>
+</body>
+
+</html>

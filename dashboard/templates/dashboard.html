@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SentinelShield Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo.ico') }}">
+</head>
+
+<body>
+    <div class="navbar">
+        <div style="display: flex; align-items: center;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo-img">
+            <h1>SentinelShield SOC Dashboard</h1>
+        </div>
+        <div class="status">System Status: <span class="active">ACTIVE</span></div>
+    </div>
+
+    <div class="container">
+        <!-- Summary Cards -->
+        <div class="stats-grid">
+            <div class="card stat-card">
+                <h3>Total Requests</h3>
+                <div class="value">{{ stats.total_requests }}</div>
+            </div>
+            <div class="card stat-card blocked">
+                <h3>Blocked</h3>
+                <div class="value">{{ stats.blocked_requests }}</div>
+            </div>
+            <div class="card stat-card attack">
+                <h3>Attacks Detected</h3>
+                <div class="value">{{ stats.attacks_detected }}</div>
+            </div>
+            <div class="card stat-card warning">
+                <h3>Rate Limited</h3>
+                <div class="value">{{ stats.rate_limited_count }}</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Attack Distribution -->
+            <div class="card">
+                <h2>Attack Type Distribution</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Attack Type</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for type, count in stats.attack_types.most_common() %}
+                        <tr>
+                            <td>{{ type }}</td>
+                            <td>{{ count }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="2">No attacks detected yet</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Top IPs -->
+            <div class="card">
+                <h2>Top Active IPs</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>IP Address</th>
+                            <th>Requests</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ip, count in stats.top_ips.most_common(10) %}
+                        <tr>
+                            <td>{{ ip }}</td>
+                            <td>{{ count }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="2">No traffic recorded</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Logs -->
+        <div class="card full-width">
+            <h2>Recent Security Events</h2>
+            <div class="table-container">
+                <table class="log-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>IP</th>
+                            <th>Action</th>
+                            <th>Category</th>
+                            <th>Reason</th>
+                            <th>Path</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in stats.recent_logs %}
+                        <tr class="{{ 'row-block' if log.action == 'BLOCK' else 'row-allow' }}">
+                            <td>{{ log.timestamp }}</td>
+                            <td>{{ log.ip }}</td>
+                            <td><span class="badge {{ 'badge-block' if log.action == 'BLOCK' else 'badge-allow' }}">{{
+                                    log.action }}</span></td>
+                            <td>{{ log.category }}</td>
+                            <td>{{ log.reason }}</td>
+                            <td class="code">{{ log.path }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auto-refresh script -->
+    <script>
+        setTimeout(function () {
+            location.reload();
+        }, 10000); // Refresh every 10 seconds
+    </script>
+</body>
+
+</html>

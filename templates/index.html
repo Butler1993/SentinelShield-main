@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SentinelShield Protected App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo.ico') }}">
+    <style>
+        .hero {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--secondary);
+            color: var(--text-main);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: var(--text-muted);
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            /* Electric Cyan */
+            color: var(--bg-color);
+            /* Dark text on bright button */
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #4cdfff;
+            /* Lighter cyan */
+        }
+
+        .testing-guide {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: var(--primary);
+            font-family: monospace;
+        }
+
+        .test-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: var(--text-main);
+        }
+
+        .test-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: var(--success);
+            color: var(--bg-color);
+            float: right;
+        }
+
+        .logo-img {
+            height: 40px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div style="display: flex; align-items: center;">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo-img">
+            <h1>SentinelShield</h1>
+        </div>
+        <div>
+            <a href="/dashboard" style="color: white; text-decoration: none; font-weight: bold;">View Dashboard
+                &rarr;</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Secure. Monitored. Protected.</h1>
+        <p>This application is guarded by SentinelShield WAF.</p>
+        <p>Any malicious attempts will be detected and blocked.</p>
+        <a href="/dashboard" class="cta-button">Monitor Traffic</a>
+    </div>
+
+    <div class="container testing-guide">
+        <h2>🛠️ Attack Testing Ground</h2>
+        <p>Use the links below to simulate common web attacks. The WAF should intercept them.</p>
+
+        <div class="test-box" onclick="window.location.href='/?id=1 OR 1=1'">
+            <strong>SQL Injection</strong>
+            <br>
+            <code>/?id=1 OR 1=1</code>
+            <span class="status-badge" style="background: #e74c3c;">Should Block</span>
+        </div>
+
+        <div class="test-box" onclick="window.location.href='/?q=<script>alert(1)</script>'">
+            <strong>Cross-Site Scripting (XSS)</strong>
+            <br>
+            <code>/?q=&lt;script&gt;alert(1)&lt;/script&gt;</code>
+            <span class="status-badge" style="background: #e74c3c;">Should Block</span>
+        </div>
+
+        <div class="test-box" onclick="window.location.href='/?file=../../etc/passwd'">
+            <strong>Directory Traversal</strong>
+            <br>
+            <code>/?file=../../etc/passwd</code>
+            <span class="status-badge" style="background: #e74c3c;">Should Block</span>
+        </div>
+
+        <div class="test-box" onclick="window.location.href='/?cmd=cat /etc/passwd'">
+            <strong>Command Injection</strong>
+            <br>
+            <code>/?cmd=cat /etc/passwd</code>
+            <span class="status-badge" style="background: #e74c3c;">Should Block</span>
+        </div>
+
+        <div class="test-box" onclick="window.location.href='/?q=hello'">
+            <strong>Normal Traffic</strong>
+            <br>
+            <code>/?q=hello</code>
+            <span class="status-badge">Should Allow</span>
+        </div>
+    </div>
+
+</body>
+
+</html>
