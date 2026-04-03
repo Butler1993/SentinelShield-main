@@ -1,8 +1,8 @@
 :root {
     /* User Defined Theme */
-    --bg-color: #0A192F;
+    --bg-color: #0A0F0D;
     /* Dark Navy */
-    --card-bg: #112240;
+    --card-bg: #121826;
     /* Slightly lighter Navy for cards */
     --primary: #00D4FF;
     /* Electric Cyan */
@@ -28,7 +28,7 @@ body {
 }
 
 .navbar {
-    background-color: #020c1b;
+    background-color: var(--bg);
     /* Darker than bg */
     border-bottom: 1px solid var(--secondary);
     color: var(--text-main);

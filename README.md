@@ -42,7 +42,7 @@ Live terminal output showing request processing.
   - **Command Injection**
 - **⚡ Rate Limiting**: Behavior monitoring to block abusive IPs (flooding/brute-force).
 - **📊 SOC Dashboard**: Interactive web interface to monitor threats.
-- **🎨 Modern UI**: Professional Dark Navy theme with responsive design.
+- **🎨 Modern UI**: Professional Dark theme with responsive design.
 
 ---
 
@@ -56,7 +56,7 @@ Live terminal output showing request processing.
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/pramod-shinde-2303/SentinelShield.git
+   git clone https://github.com/Butler1993/SentinelShield-main.git
    cd SentinelShield
    ```
 
